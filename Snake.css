@@ -1,0 +1,20 @@
+html {
+	height: 100%;
+	margin: 0;
+}
+body{
+	height: 100%;
+	width: 100%;
+	background-color: black;
+	margin: 0;
+	display: flex;
+	/*выравнивание в ряд и по центру*/
+	flex-direction: row;
+	justify-content: center;
+	/*Перпендикулярно ряду*/
+	align-items: center;
+}
+/*граница игрового поля*/
+canvas{
+	border: 1px dashed white;
+}
