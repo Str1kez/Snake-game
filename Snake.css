@@ -1,11 +1,12 @@
 html {
 	height: 100%;
 	margin: 0;
+	/*высота и размещение*/
 }
 body{
 	height: 100%;
 	width: 100%;
-	background-color: black;
+	background-color: #2B1C1C;
 	margin: 0;
 	display: flex;
 	/*выравнивание в ряд и по центру*/
@@ -16,5 +17,6 @@ body{
 }
 /*граница игрового поля*/
 canvas{
-	border: 1px dashed white;
+	border: 1px solid white;
+	background-color: black;
 }
