@@ -104,7 +104,11 @@ function main() {
 				score = 0; // обнуляем счет
 				for (var j = 0; j < stail.length - tail; j++) {
 					// выделим "отвалившийся конец"
-					stail[j].color = '#ab0743';
+					if (button.value == 'Yellow') {
+						stail[j].color = '#ab0743';
+					} else {
+						stail[j].color = '#2b6dff';
+					}
 				}
 			}
 		}
