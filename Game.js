@@ -22,14 +22,31 @@ var
 	bestscoreever,
 	clr = '#3bab07'; // изменение цвета змейки
 
-var button = document.getElementById('elem'); // изменение цвета по кнопке
-button.onclick = changecolor;
-function changecolor() {
-	clr = 'red'
-};
+
+
 
 // сама игра	
 function main() {
+
+	var button = document.getElementById('elem'); // изменение цвета по кнопке
+	if (button.value == 'Yellow') {
+		button.onclick = function () {
+			clr = '#fff001';
+			for (var i = 0; i < stail.length; i++) {
+				stail[i].color = clr;
+			}
+			button.value = 'Green';
+		};
+	}
+	else {
+		button.onclick = function () {
+			clr = '#3bab07';
+			for (var i = 0; i < stail.length; i++) {
+				stail[i].color = clr;
+			}
+			button.value = 'Yellow';
+		};
+	}
 
 	// обновление канваса, иначе все нарисованное останется 
 	con.fillStyle = 'black';
