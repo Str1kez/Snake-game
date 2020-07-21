@@ -26,13 +26,14 @@ var
 	score = 0, // показывает счёт
 	bestscore = 0, // лучший счёт за данную игру
 	bestscoreever = JSON.parse(localStorage.getItem('bestscoreever')), // берем из локалки файл с топскором
-	clr = '#3bab07'; // изменение цвета змейки
+	clr = '#3bab07', // изменение цвета змейки
+	button = document.getElementById('color');// изменение цвета по кнопке
 
 // сама игра	
 function main() {
-	// изменение цвета по кнопке
-	var button = document.getElementById('elem');
+
 	if (button.value == 'Yellow') {
+		button.style.backgroundColor = '#fff001';
 		button.onclick = function () {
 			clr = '#fff001';
 			for (var i = 0; i < stail.length; i++) {
@@ -42,6 +43,7 @@ function main() {
 		};
 	}
 	else {
+		button.style.backgroundColor = '#3bab07';
 		button.onclick = function () {
 			clr = '#3bab07';
 			for (var i = 0; i < stail.length; i++) {
@@ -55,6 +57,14 @@ function main() {
 	con.fillStyle = 'black';
 	con.fillRect(0, 0, canv.width, canv.height);
 
+	// раздел под счет
+	con.beginPath();
+	con.lineWidth = 1;
+	con.moveTo(0, 65);
+	con.lineTo(1400, 65);
+	con.strokeStyle = 'white';
+	con.stroke();
+
 	// движение головы
 	px += xs;
 	py += ys;
@@ -64,9 +74,9 @@ function main() {
 		px = 0;
 	}
 	if (py > canv.height) { // уход вниз
-		py = 0;
+		py = 66;
 	}
-	if (py + ph < 0) { // уход вверх
+	if (py + ph < 86) { // уход вверх
 		py = canv.height;
 	}
 	if (px + pw < 0) { // уход влево
@@ -158,7 +168,7 @@ function spawn() {
 	};
 
 	// сделаем так, чтобы яблоко не было за границей поля, второе условие чтобы не было яблока на скорборде
-	if ((newapple.x > canv.width - aw) || (newapple.y > canv.height - ah) || (newapple.y < 60)) {
+	if ((newapple.x > canv.width - aw) || (newapple.y > canv.height - ah) || (newapple.y < 65)) {
 		spawn(); // снова инициализируем функцию
 		return;
 	}

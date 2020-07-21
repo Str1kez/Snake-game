@@ -9,8 +9,11 @@
 
 <body>
 	<canvas id="snake" width="1400px" height="715px"></canvas>
-	<input id="elem" type="button" value="Yellow" name="color" />
-	<input type="button" value="Manual" id="controls" onclick="alert('Use arrows to control the snake!')" />
+	<div class="buttons">
+		<p><input id="color" type="button" value="Yellow" title="Change color of snake" /></p>
+		<p><input type="button" value="Manual" id="controls" title="Controls"
+				onclick="alert('Use arrows to control the snake!')" /></p>
+	</div>
 	<script src="Game.js"></script>
 </body>
 
