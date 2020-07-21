@@ -2,6 +2,12 @@ window.onload = function () { // при загрузке страницы вып
 	document.addEventListener('keydown', move); // при нажатии клавиши
 	setInterval(main, 1000 / 60); // 60 fps
 };
+
+// при уходе со страницы закидываем в локалку данные счета
+window.onunload = function () {
+	localStorage.setItem('bestscoreever', JSON.stringify(bestscoreever));
+}
+
 var
 	canv = document.getElementById('snake'), // подключаем канвас
 	con = canv.getContext('2d'), // как будем рисовать
@@ -18,22 +24,19 @@ var
 	safe = 20, // зона защиты от съедения
 	cd = false, // небольшая задержка для кнопки, чтобы при повороте не съесть
 	score = 0, // показывает счёт
-	bestscore = 0, // лучший счёт
-	bestscoreever,
+	bestscore = 0, // лучший счёт за данную игру
+	bestscoreever = JSON.parse(localStorage.getItem('bestscoreever')), // берем из локалки файл с топскором
 	clr = '#3bab07'; // изменение цвета змейки
-
-
-
 
 // сама игра	
 function main() {
-
-	var button = document.getElementById('elem'); // изменение цвета по кнопке
+	// изменение цвета по кнопке
+	var button = document.getElementById('elem');
 	if (button.value == 'Yellow') {
 		button.onclick = function () {
 			clr = '#fff001';
 			for (var i = 0; i < stail.length; i++) {
-				stail[i].color = clr;
+				stail[i].color = clr; // меняем цвет всей змейки
 			}
 			button.value = 'Green';
 		};
@@ -132,16 +135,19 @@ function main() {
 			speed += 0.2; // увеличиваем скорость
 			score += 50; // добавляем очки
 			if (bestscore < score) { bestscore = score };
+			if (bestscoreever < bestscore) { bestscoreever = bestscore };
 			spawn(); // добавляем новое яблоко на поле
 			break;
 		}
 	}
 	// добавим скорборд
 	con.fillStyle = 'white';
-	con.font = '40px Arial';
+	con.font = '30px Arial';
 	con.fillText('Your SCORE: ' + score, 40, 60);
-	con.font = '40px Arial';
-	con.fillText('Your BESTSCORE: ' + bestscore, 900, 60);
+	con.font = '30px Arial';
+	con.fillText('Your BESTSCORE: ' + bestscore, 1000, 60);
+	con.font = '30px Arial';
+	con.fillText('Your BESTSCOREEVER: ' + bestscoreever, 400, 60);
 };
 
 function spawn() {
@@ -156,8 +162,8 @@ function spawn() {
 		spawn(); // снова инициализируем функцию
 		return;
 	}
-	// проверка спавна яблока прямо на змейке
 
+	// проверка спавна яблока прямо на змейке
 	for (var i = 0; i < stail.length; i++) {
 		if (
 			newapple.x < (stail[i].x + pw) && (newapple.x + pw) > stail[i].x
