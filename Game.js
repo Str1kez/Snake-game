@@ -227,7 +227,7 @@ function move(e) {
 			break;
 	}
 	cd = true;
-	setTimeout(function () { cd = false; }, 70); // чтобы быстро не завернуть и не съесть себя
+	setTimeout(function () { cd = false; }, 80); // чтобы быстро не завернуть и не съесть себя
 }
 
 function Buttons() {
