@@ -1,6 +1,7 @@
 window.onload = function () { // при загрузке страницы выполняется функция
 	document.addEventListener('keydown', move); // при нажатии клавиши
 	setInterval(main, 1000 / 60); // 60 fps
+	alert(bbb[0].value);
 };
 
 // при уходе со страницы закидываем в локалку данные счета
@@ -29,9 +30,8 @@ var
 	clr = '#3bab07', // изменение цвета змейки
 	clrf = 'black', // цвет поля
 	clrb = 'white', // цвет границы
-	button = document.getElementById('color'), // изменение цвета по кнопке
-	buttonbg = document.getElementById('back'), // изменение фона
-	buttonf = document.getElementById('Field'); // изменение цвета поля
+	body = document.getElementsByTagName('body'), // элемент тэга для изменения цвета страницы
+	button = document.getElementsByClassName('buttons'); // список кнопок 
 
 // сама игра	
 function main() {
@@ -103,7 +103,7 @@ function main() {
 				score = 0; // обнуляем счет
 				for (var j = 0; j < stail.length - tail; j++) {
 					// выделим "отвалившийся конец"
-					if (button.value == 'Yellow') {
+					if (button[2].value == 'Yellow') {
 						stail[j].color = '#ab0743';
 					} else {
 						stail[j].color = '#2b6dff';
@@ -132,18 +132,21 @@ function main() {
 			score += 50; // добавляем очки
 			if (bestscore < score) { bestscore = score };
 			if (bestscoreever < bestscore) { bestscoreever = bestscore };
-			spawn(); // добавляем новое яблоко на поле
+			// если два яблока, то не добавляем
+			if (apples.length == 0) {
+				spawn(); // добавляем новое яблоко на поле
+			}
 			break;
 		}
 	}
 	// добавим скорборд
 	con.fillStyle = clrb;
 	con.font = '30px Arial';
-	con.fillText('Your SCORE: ' + score, 40, 60);
+	con.fillText('SCORE: ' + score, 45, 60);
 	con.font = '30px Arial';
-	con.fillText('Your BESTSCORE: ' + bestscore, 1000, 60);
+	con.fillText('CURRENT BESTSCORE: ' + bestscore, 900, 60);
 	con.font = '30px Arial';
-	con.fillText('Your BESTSCOREEVER: ' + bestscoreever, 400, 60);
+	con.fillText('BESTSCORE: ' + bestscoreever, 420, 60);
 };
 
 function spawn() {
@@ -173,8 +176,8 @@ function spawn() {
 	// все условия выполнены, добавляем яблоко в список
 	apples.push(newapple);
 
-	// поставим 25% шанс на второе яблоко
-	if (apples.length < 2 && (~~(Math.random() * 1000) < 250)) {
+	// второе яблоко, если съедено 10 подряд
+	if (apples.length == 1 && score % 500 == 0 && score > 0) {
 		spawn();
 	}
 }
@@ -232,56 +235,58 @@ function move(e) {
 
 function Buttons() {
 	// имзенение цвета страницы
-	if (buttonbg.title == 'Brown') {
-		buttonbg.onclick = function () {
-			document.getElementById('body').style.backgroundColor = '#63e3f2';
-			buttonbg.title = 'SkyBlue';
+	if (button[1].title == 'Brown') {
+		button[1].onclick = function () {
+			body[0].style.backgroundColor = '#63e3f2';
+			document.getElementById('text').style.color = 'black';
+			button[1].title = 'SkyBlue';
 		}
 	}
 	else {
-		buttonbg.onclick = function () {
-			document.getElementById('body').style.backgroundColor = '#2B1C1C';
-			buttonbg.title = 'Brown'
+		button[1].onclick = function () {
+			body[0].style.backgroundColor = '#2B1C1C';
+			document.getElementById('text').style.color = 'white';
+			button[1].title = 'Brown'
 		}
 	}
 
 	// изменение цвета змейки
-	if (button.value == 'Yellow') {
-		button.style.backgroundColor = '#fff001';
-		button.onclick = function () {
+	if (button[2].title == 'Yellow') {
+		button[2].style.backgroundColor = '#fff001';
+		button[2].onclick = function () {
 			clr = '#fff001';
 			for (var i = 0; i < stail.length; i++) {
 				stail[i].color = clr; // меняем цвет всей змейки
 			}
-			button.value = 'Green';
+			button[2].title = 'Green';
 		};
 	}
 	else {
-		button.style.backgroundColor = '#3bab07';
-		button.onclick = function () {
+		button[2].style.backgroundColor = '#3bab07';
+		button[2].onclick = function () {
 			clr = '#3bab07';
 			for (var i = 0; i < stail.length; i++) {
 				stail[i].color = clr;
 			}
-			button.value = 'Yellow';
+			button[2].title = 'Yellow';
 		};
 	}
 
 	// изменение цвета поля
-	if (buttonf.title == 'Dark') {
-		buttonf.onclick = function () {
+	if (button[0].title == 'Dark') {
+		button[0].onclick = function () {
 			clrf = '#b3c4c4';
 			document.getElementById('snake').style.backgroundColor = clrf;
 			document.getElementById('snake').style.borderColor = clrb = 'black';
-			buttonf.title = 'light';
+			button[0].title = 'light';
 		}
 	}
 	else {
-		buttonf.onclick = function () {
+		button[0].onclick = function () {
 			clrf = 'black';
 			document.getElementById('snake').style.backgroundColor = 'black';
 			document.getElementById('snake').style.borderColor = clrb = 'white';
-			buttonf.title = 'Dark';
+			button[0].title = 'Dark';
 		}
 	}
 }
