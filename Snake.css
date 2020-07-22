@@ -19,9 +19,13 @@ body{
 canvas{
 	border: 1px solid white;
 	background-color: black;
-	display: flexbox;
+	display: block;
 }
 /* подравняем кнопки */
 .buttons{
-	margin-left: 30px;
+	margin-left: 25px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }

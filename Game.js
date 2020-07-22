@@ -27,42 +27,27 @@ var
 	bestscore = 0, // лучший счёт за данную игру
 	bestscoreever = JSON.parse(localStorage.getItem('bestscoreever')), // берем из локалки файл с топскором
 	clr = '#3bab07', // изменение цвета змейки
-	button = document.getElementById('color');// изменение цвета по кнопке
+	clrf = 'black', // цвет поля
+	clrb = 'white', // цвет границы
+	button = document.getElementById('color'), // изменение цвета по кнопке
+	buttonbg = document.getElementById('back'), // изменение фона
+	buttonf = document.getElementById('Field'); // изменение цвета поля
 
 // сама игра	
 function main() {
 
-	if (button.value == 'Yellow') {
-		button.style.backgroundColor = '#fff001';
-		button.onclick = function () {
-			clr = '#fff001';
-			for (var i = 0; i < stail.length; i++) {
-				stail[i].color = clr; // меняем цвет всей змейки
-			}
-			button.value = 'Green';
-		};
-	}
-	else {
-		button.style.backgroundColor = '#3bab07';
-		button.onclick = function () {
-			clr = '#3bab07';
-			for (var i = 0; i < stail.length; i++) {
-				stail[i].color = clr;
-			}
-			button.value = 'Yellow';
-		};
-	}
+	Buttons();
 
 	// обновление канваса, иначе все нарисованное останется 
-	con.fillStyle = 'black';
+	con.fillStyle = clrf;
 	con.fillRect(0, 0, canv.width, canv.height);
 
 	// раздел под счет
 	con.beginPath();
-	con.lineWidth = 1;
+	con.lineWidth = 2;
 	con.moveTo(0, 65);
 	con.lineTo(1400, 65);
-	con.strokeStyle = 'white';
+	con.strokeStyle = clrb;
 	con.stroke();
 
 	// движение головы
@@ -74,9 +59,9 @@ function main() {
 		px = 0;
 	}
 	if (py > canv.height) { // уход вниз
-		py = 66;
+		py = 67;
 	}
-	if (py + ph < 86) { // уход вверх
+	if (py + ph < 87) { // уход вверх
 		py = canv.height;
 	}
 	if (px + pw < 0) { // уход влево
@@ -89,6 +74,7 @@ function main() {
 		con.fillStyle = stail[i].color;
 		con.fillRect(stail[i].x, stail[i].y, pw, ph);
 	}
+
 	stail.push({ x: px, y: py, color: con.fillStyle }); // добавляем в очередь голову
 
 	// рассмотрим переполнение
@@ -140,7 +126,7 @@ function main() {
 			&& py < (apples[ap].y + ah) && (py + ph) > apples[ap].y
 		) {
 			// попали на яблоко
-			apples.splice(ap, 1); // удаляем это яблоко из списка
+			apples.splice(ap, 1); // удаляем это яблоко из списка, (shift может удалить несъеденные яблоки)
 			tail += 10; // увеличиваем длину змейки
 			speed += 0.2; // увеличиваем скорость
 			score += 50; // добавляем очки
@@ -151,7 +137,7 @@ function main() {
 		}
 	}
 	// добавим скорборд
-	con.fillStyle = 'white';
+	con.fillStyle = clrb;
 	con.font = '30px Arial';
 	con.fillText('Your SCORE: ' + score, 40, 60);
 	con.font = '30px Arial';
@@ -176,8 +162,8 @@ function spawn() {
 	// проверка спавна яблока прямо на змейке
 	for (var i = 0; i < stail.length; i++) {
 		if (
-			newapple.x < (stail[i].x + pw) && (newapple.x + pw) > stail[i].x
-			&& newapple.y < (stail[i].y + ph) && (newapple.y + ph) > stail[i].y
+			newapple.x < (stail[i].x + pw) && (newapple.x + aw) > stail[i].x
+			&& newapple.y < (stail[i].y + ph) && (newapple.y + ah) > stail[i].y
 		) {
 			spawn();
 			return;
@@ -244,7 +230,61 @@ function move(e) {
 	setTimeout(function () { cd = false; }, 70); // чтобы быстро не завернуть и не съесть себя
 }
 
+function Buttons() {
+	// имзенение цвета страницы
+	if (buttonbg.title == 'Brown') {
+		buttonbg.onclick = function () {
+			document.getElementById('body').style.backgroundColor = '#63e3f2';
+			buttonbg.title = 'SkyBlue';
+		}
+	}
+	else {
+		buttonbg.onclick = function () {
+			document.getElementById('body').style.backgroundColor = '#2B1C1C';
+			buttonbg.title = 'Brown'
+		}
+	}
 
+	// изменение цвета змейки
+	if (button.value == 'Yellow') {
+		button.style.backgroundColor = '#fff001';
+		button.onclick = function () {
+			clr = '#fff001';
+			for (var i = 0; i < stail.length; i++) {
+				stail[i].color = clr; // меняем цвет всей змейки
+			}
+			button.value = 'Green';
+		};
+	}
+	else {
+		button.style.backgroundColor = '#3bab07';
+		button.onclick = function () {
+			clr = '#3bab07';
+			for (var i = 0; i < stail.length; i++) {
+				stail[i].color = clr;
+			}
+			button.value = 'Yellow';
+		};
+	}
+
+	// изменение цвета поля
+	if (buttonf.title == 'Dark') {
+		buttonf.onclick = function () {
+			clrf = '#b3c4c4';
+			document.getElementById('snake').style.backgroundColor = clrf;
+			document.getElementById('snake').style.borderColor = clrb = 'black';
+			buttonf.title = 'light';
+		}
+	}
+	else {
+		buttonf.onclick = function () {
+			clrf = 'black';
+			document.getElementById('snake').style.backgroundColor = 'black';
+			document.getElementById('snake').style.borderColor = clrb = 'white';
+			buttonf.title = 'Dark';
+		}
+	}
+}
 
 
 
