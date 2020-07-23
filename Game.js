@@ -33,7 +33,7 @@ var
 	body = document.getElementsByTagName('body'), // элемент тэга для изменения цвета страницы
 	button = document.getElementsByClassName('buttons'); // список кнопок 
 
-// сама игра	
+// *сама игра	
 function main() {
 
 	Buttons();
@@ -59,12 +59,12 @@ function main() {
 		px = 0;
 	}
 	if (py > canv.height) { // уход вниз
-		py = 67;
+		py = 66;
 	}
-	if (py + ph < 87) { // уход вверх
+	if (py < 66) { // уход вверх
 		py = canv.height;
 	}
-	if (px + pw < 0) { // уход влево
+	if (px < 0) { // уход влево
 		px = canv.width;
 	}
 
@@ -103,7 +103,7 @@ function main() {
 				score = 0; // обнуляем счет
 				for (var j = 0; j < stail.length - tail; j++) {
 					// выделим "отвалившийся конец"
-					if (button[2].value == 'Yellow') {
+					if (button[2].title == 'Yellow') {
 						stail[j].color = '#ab0743';
 					} else {
 						stail[j].color = '#2b6dff';
@@ -230,7 +230,7 @@ function move(e) {
 			break;
 	}
 	cd = true;
-	setTimeout(function () { cd = false; }, 80); // чтобы быстро не завернуть и не съесть себя
+	setTimeout(function () { cd = false; }, 90); // чтобы быстро не завернуть и не съесть себя
 }
 
 function Buttons() {
@@ -238,14 +238,18 @@ function Buttons() {
 	if (button[1].title == 'Brown') {
 		button[1].onclick = function () {
 			body[0].style.backgroundColor = '#63e3f2';
-			document.getElementById('text').style.color = 'black';
+			document.getElementsByClassName('text')[0].style.color = 'black';
+			document.getElementsByClassName('text')[1].style.color = 'black';
+			document.getElementsByClassName('text')[2].style.color = 'black';
 			button[1].title = 'SkyBlue';
 		}
 	}
 	else {
 		button[1].onclick = function () {
 			body[0].style.backgroundColor = '#2B1C1C';
-			document.getElementById('text').style.color = 'white';
+			document.getElementsByClassName('text')[0].style.color = 'white';
+			document.getElementsByClassName('text')[1].style.color = 'white';
+			document.getElementsByClassName('text')[2].style.color = 'white';
 			button[1].title = 'Brown'
 		}
 	}
@@ -289,6 +293,32 @@ function Buttons() {
 			button[0].title = 'Dark';
 		}
 	}
+	// пауза
+	button[3].onclick = function () {
+		if (start) { alert('GAME IS PAUSED\n' + 'Press OK to continue...'); }
+		else {
+			alert('GAME DIDNT START');
+		}
+	}
+	// мануал
+	if (button[4].title == 'Show') {
+		button[4].onclick = function () {
+			document.getElementsByTagName('img')[0].style.visibility = 'visible';
+			button[4].title = 'Hide';
+			button[4].value = 'Close';
+			button[4].style.backgroundColor = 'red';
+			button[4].style.color = 'white'
+		};
+	}
+	else {
+		button[4].onclick = function () {
+			document.getElementsByTagName('img')[0].style.visibility = 'hidden';
+			button[4].title = 'Show';
+			button[4].value = 'Manual';
+			button[4].style.backgroundColor = 'white';
+			button[4].style.color = 'black'
+		};
+	};
 }
 
 

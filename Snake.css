@@ -40,18 +40,38 @@ canvas{
 	align-items: center;
 }
 
+#buttons_settings{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 #button_manual{
 	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .buttons{
 	width: 90px;
 }
 
-#text{
+.text{
 	font-size: 20px;
 	margin-bottom: 0px;
 	color: white;
+	font-weight: bolder;
 }
 
+img{
+	width: 640px;
+	height: 360px;
+	position: absolute;
+	bottom: 200px;
+	right: 400px;
+	visibility: hidden;
+}
 
