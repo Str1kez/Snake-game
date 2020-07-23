@@ -67,11 +67,11 @@ canvas{
 }
 
 img{
-	width: 640px;
-	height: 360px;
+	width: 800px;
+	height: 450px;
 	position: absolute;
-	bottom: 200px;
-	right: 400px;
+	bottom: 80px;
+	right: 200px;
 	visibility: hidden;
 }
 

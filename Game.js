@@ -1,9 +1,8 @@
 window.onload = function () { // при загрузке страницы выполняется функция
 	document.addEventListener('keydown', move); // при нажатии клавиши
 	setInterval(main, 1000 / 60); // 60 fps
-	alert(bbb[0].value);
-};
 
+};
 // при уходе со страницы закидываем в локалку данные счета
 window.onunload = function () {
 	localStorage.setItem('bestscoreever', JSON.stringify(bestscoreever));
