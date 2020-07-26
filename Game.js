@@ -185,11 +185,6 @@ function spawn() {
 function randomcolor2() {
 	return 'rgb(' + (~~(Math.random() * 255)).toString() + ', ' + (~~(Math.random() * 255)).toString() + ', ' + (~~(Math.random() * 255)).toString() + ')';
 };
-// ! НЕ совсем корректная работа
-// function randomcolor() {
-// 	// выведем в hex, берем число от 0 до 255 и переводим в строку с двумя разрядами
-// 	return '#' + (~~(Math.random() * 255)).toString(16) + (~~(Math.random() * 255)).toString(16) + (~~(Math.random() * 255)).toString(16);
-// }
 
 // настроим контроль над змейкой
 function move(e) {
