@@ -103,7 +103,7 @@ function main() {
 				for (var j = 0; j < stail.length - tail; j++) {
 					// выделим "отвалившийся конец"
 					if (button[2].title == 'Yellow') {
-						stail[j].color = '#ab0743';
+						stail[j].color = '#d111bb';
 					} else {
 						stail[j].color = '#2b6dff';
 					}
