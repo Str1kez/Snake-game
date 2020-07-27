@@ -35,7 +35,7 @@ var
 // *сама игра	
 function main() {
 
-	Buttons();
+	Buttons(); // функции кнопок
 
 	// обновление канваса, иначе все нарисованное останется 
 	con.fillStyle = clrf;
@@ -98,7 +98,7 @@ function main() {
 			) {
 				// есть пересечение
 				tail = 10;
-				speed = baseSpeed; // ставим скорость подефолту
+				speed = baseSpeed; // ставим скорость по дефолту
 				score = 0; // обнуляем счет
 				for (var j = 0; j < stail.length - tail; j++) {
 					// выделим "отвалившийся конец"
@@ -147,7 +147,7 @@ function main() {
 	con.font = '30px Arial';
 	con.fillText('BESTSCORE: ' + bestscoreever, 420, 60);
 };
-
+// функция добавления яблока
 function spawn() {
 	var newapple = {
 		x: Math.floor(Math.random() * canv.width), // спавним в любое место
@@ -232,6 +232,7 @@ function Buttons() {
 	if (button[1].title == 'Brown') {
 		button[1].onclick = function () {
 			body[0].style.backgroundColor = '#63e3f2';
+			// светлая тема - темный текст
 			document.getElementsByClassName('text')[0].style.color = 'black';
 			document.getElementsByClassName('text')[1].style.color = 'black';
 			document.getElementsByClassName('text')[2].style.color = 'black';
@@ -241,6 +242,7 @@ function Buttons() {
 	else {
 		button[1].onclick = function () {
 			body[0].style.backgroundColor = '#2B1C1C';
+			// и наоборот
 			document.getElementsByClassName('text')[0].style.color = 'white';
 			document.getElementsByClassName('text')[1].style.color = 'white';
 			document.getElementsByClassName('text')[2].style.color = 'white';

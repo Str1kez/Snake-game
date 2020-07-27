@@ -54,18 +54,18 @@ canvas{
 	justify-content: center;
 	align-items: center;
 }
-
+/* выставим одинаковый размер */
 .buttons{
 	width: 90px;
 }
-
+/* стиль текста на странице */
 .text{
 	font-size: 20px;
 	margin-bottom: 0px;
 	color: white;
 	font-weight: bolder;
 }
-
+/* стиль картинки (мануала) */
 img{
 	width: 800px;
 	height: 450px;
