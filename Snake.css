@@ -30,7 +30,9 @@ canvas{
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	height: 715px;
+	height: 705px;
+	margin-bottom: 10px;
+	max-height: 715px;
 }
 
 #buttons_color{
@@ -48,7 +50,7 @@ canvas{
 }
 
 #button_manual{
-	margin-bottom: 10px;
+	
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -57,6 +59,10 @@ canvas{
 /* выставим одинаковый размер */
 .buttons{
 	width: 90px;
+}
+/* при наведении показывается рамка */
+.buttons:hover{
+	border: 2px solid #1900ff;
 }
 /* стиль текста на странице */
 .text{

@@ -1,7 +1,6 @@
 window.onload = function () { // при загрузке страницы выполняется функция
 	document.addEventListener('keydown', move); // при нажатии клавиши
 	setInterval(main, 1000 / 60); // 60 fps
-
 };
 // при уходе со страницы закидываем в локалку данные счета
 window.onunload = function () {
@@ -30,7 +29,8 @@ var
 	clrf = 'black', // цвет поля
 	clrb = 'white', // цвет границы
 	body = document.getElementsByTagName('body'), // элемент тэга для изменения цвета страницы
-	button = document.getElementsByClassName('buttons'); // список кнопок 
+	button = document.getElementsByClassName('buttons'), // список кнопок 
+	barriers = false; // барьеры 
 
 // *сама игра	
 function main() {
@@ -48,6 +48,9 @@ function main() {
 	con.lineTo(1400, 65);
 	con.strokeStyle = clrb;
 	con.stroke();
+
+	// вывод барьера
+	ShowBarriers(barriers);
 
 	// движение головы
 	px += xs;
@@ -93,8 +96,8 @@ function main() {
 
 			// условие пересечения, что квадрат хвоста лежит внутри квадрата головы
 			if (
-				px < (stail[i].x + pw) && (px + pw) > stail[i].x
-				&& py < (stail[i].y + ph) && (py + ph) > stail[i].y
+				(px < (stail[i].x + pw) && (px + pw) > stail[i].x
+					&& py < (stail[i].y + ph) && (py + ph) > stail[i].y) || LoseByBarriers(barriers)
 			) {
 				// есть пересечение
 				tail = 10;
@@ -170,6 +173,12 @@ function spawn() {
 			spawn();
 			return;
 		}
+	}
+
+	//проверка на барьер
+	if (barriers && ((newapple.x > canv.width - aw - 10) || (newapple.y > canv.height - ah - 10) || (newapple.y < 75) || (newapple.x < 10))) {
+		spawn(); // снова инициализируем функцию
+		return;
 	}
 
 	// все условия выполнены, добавляем яблоко в список
@@ -297,26 +306,53 @@ function Buttons() {
 		}
 	}
 	// мануал
-	if (button[4].title == 'Show') {
-		button[4].onclick = function () {
+	if (button[6].title == 'Show') {
+		button[6].onclick = function () {
 			document.getElementsByTagName('img')[0].style.visibility = 'visible';
-			button[4].title = 'Hide';
-			button[4].value = 'Close';
-			button[4].style.backgroundColor = 'red';
-			button[4].style.color = 'white'
+			button[6].title = 'Hide';
+			button[6].value = 'Close';
+			button[6].style.backgroundColor = 'red';
+			button[6].style.color = 'white'
 		};
 	}
 	else {
-		button[4].onclick = function () {
+		button[6].onclick = function () {
 			document.getElementsByTagName('img')[0].style.visibility = 'hidden';
-			button[4].title = 'Show';
-			button[4].value = 'Manual';
-			button[4].style.backgroundColor = 'white';
-			button[4].style.color = 'black'
+			button[6].title = 'Show';
+			button[6].value = 'Manual';
+			button[6].style.backgroundColor = 'white';
+			button[6].style.color = 'black'
 		};
 	};
+
+	button[4].onclick = function () {
+		barriers = true;
+	};
+	button[5].onclick = function () {
+		barriers = false;
+	};
+
 }
 
+// добавим небольшие барьеры
+function ShowBarriers(barriers) {
+	if (barriers) {
+		con.strokeStyle = clrb;
+		con.beginPath();
+		con.moveTo(10, 75);
+		con.lineWidth = 20;
+		con.lineTo(10, canv.height - 10);
+		con.lineTo(canv.width - 10, canv.height - 10);
+		con.lineTo(canv.width - 10, 75);
+		con.closePath();
+		con.stroke();
+	}
+}
 
-
-
+// условие поражения от барьера
+function LoseByBarriers(barriers) {
+	if (barriers && ((px > canv.width - 10) || (py > canv.height - 10) || (py < 76) || (px < 10))) {
+		return true;
+	}
+	return false;
+}
