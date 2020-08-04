@@ -16,12 +16,14 @@ body{
 	/*Перпендикулярно ряду*/
 	align-items: center;
 }
+
 /*граница игрового поля*/
 canvas{
 	border: 1px solid white;
 	background-color: black;
 	display: block;
 }
+
 /* подравняем кнопки */
 #buttons_list{
 	margin-left: 20px;
@@ -56,14 +58,24 @@ canvas{
 	justify-content: center;
 	align-items: center;
 }
+
 /* выставим одинаковый размер */
 .buttons{
 	width: 90px;
 }
+
 /* при наведении показывается рамка */
 .buttons:hover{
 	border: 2px solid #1900ff;
+	color: rebeccapurple;
+	transform: scale(1.2);
 }
+
+/* по нажатии */
+.buttons:active{
+	background-color: red;
+}
+
 /* стиль текста на странице */
 .text{
 	font-size: 20px;
@@ -71,6 +83,7 @@ canvas{
 	color: white;
 	font-weight: bolder;
 }
+
 /* стиль картинки (мануала) */
 img{
 	width: 800px;
