@@ -1,7 +1,9 @@
 window.onload = function () { // при загрузке страницы выполняется функция
 	document.addEventListener('keydown', move); // при нажатии клавиши
 	setInterval(main, 1000 / 60); // 60 fps
+	alert("if you touch yourself or touch the barrier - YOU LOSE\n" + "Good Luck 😂")
 };
+
 // при уходе со страницы закидываем в локалку данные счета
 window.onunload = function () {
 	localStorage.setItem('bestscoreever', JSON.stringify(bestscoreever));
@@ -57,17 +59,17 @@ function main() {
 	py += ys;
 
 	// перемещение змейки при выходе с игрового поля
-	if (px > canv.width) { // уход вправо
+	if (px > canv.width - pw) { // уход вправо
 		px = 0;
 	}
-	if (py > canv.height) { // уход вниз
+	if (py + ph > canv.height) { // уход вниз
 		py = 66;
 	}
 	if (py < 66) { // уход вверх
-		py = canv.height;
+		py = canv.height - ph;
 	}
 	if (px < 0) { // уход влево
-		px = canv.width;
+		px = canv.width - pw;
 	}
 
 	// раскрасим змейку
@@ -150,6 +152,7 @@ function main() {
 	con.font = '30px Arial';
 	con.fillText('BESTSCORE: ' + bestscoreever, 420, 60);
 };
+
 // функция добавления яблока
 function spawn() {
 	var newapple = {
@@ -176,7 +179,7 @@ function spawn() {
 	}
 
 	//проверка на барьер
-	if (barriers && ((newapple.x > canv.width - aw - 10) || (newapple.y > canv.height - ah - 10) || (newapple.y < 75) || (newapple.x < 10))) {
+	if (barriers && ((newapple.x > canv.width - aw - 20) || (newapple.y > canv.height - ah - 20) || (newapple.y < 85) || (newapple.x < 20))) {
 		spawn(); // снова инициализируем функцию
 		return;
 	}
@@ -324,10 +327,11 @@ function Buttons() {
 			button[6].style.color = 'black'
 		};
 	};
-
+	// добавление барьеров
 	button[4].onclick = function () {
 		barriers = true;
 	};
+	// очищение поля от барьеров
 	button[5].onclick = function () {
 		barriers = false;
 	};
@@ -351,7 +355,7 @@ function ShowBarriers(barriers) {
 
 // условие поражения от барьера
 function LoseByBarriers(barriers) {
-	if (barriers && ((px > canv.width - 10) || (py > canv.height - 10) || (py < 76) || (px < 10))) {
+	if (barriers && ((px + pw > canv.width - 20) || (py + ph > canv.height - 20) || (py < 86) || (px < 20))) {
 		return true;
 	}
 	return false;
