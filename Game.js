@@ -252,7 +252,7 @@ function Buttons() {
 	}
 	else {
 		button[1].onclick = function () {
-			body[0].style.backgroundColor = '#2B1C1C';
+			body[0].style.backgroundColor = '#270046';
 			// и наоборот
 			document.getElementsByClassName('text')[0].style.color = 'white';
 			document.getElementsByClassName('text')[1].style.color = 'white';
