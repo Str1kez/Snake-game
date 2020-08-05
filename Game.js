@@ -1,7 +1,6 @@
 window.onload = function () { // при загрузке страницы выполняется функция
 	document.addEventListener('keydown', move); // при нажатии клавиши
 	setInterval(main, 1000 / 60); // 60 fps
-	alert("if you touch yourself or touch the barrier - YOU LOSE\n" + "Good Luck 😂")
 };
 
 // при уходе со страницы закидываем в локалку данные счета
@@ -325,6 +324,25 @@ function Buttons() {
 			button[6].value = 'Manual';
 			button[6].style.backgroundColor = 'white';
 			button[6].style.color = 'black'
+		};
+	};
+	//правила игры
+	if (button[7].title == 'Show') {
+		button[7].onclick = function () {
+			document.getElementsByTagName('img')[1].style.visibility = 'visible';
+			button[7].title = 'Hide';
+			button[7].value = 'Close';
+			button[7].style.backgroundColor = 'red';
+			button[7].style.color = 'white'
+		};
+	}
+	else {
+		button[7].onclick = function () {
+			document.getElementsByTagName('img')[1].style.visibility = 'hidden';
+			button[7].title = 'Show';
+			button[7].value = 'Rules';
+			button[7].style.backgroundColor = 'white';
+			button[7].style.color = 'black'
 		};
 	};
 	// добавление барьеров
