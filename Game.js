@@ -377,5 +377,5 @@ function LoseByBarriers(barriers) {
 function Paused() {
 	con.fillStyle = 'red';
 	con.font = "80px Times New Roman";
-	con.fillText("GAME IS PAUSED", canv.width - 1000, canv.height - 100);
+	con.fillText("GAME PAUSED", canv.width - 1000, canv.height - 100);
 }
