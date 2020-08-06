@@ -279,6 +279,10 @@ function Buttons() {
 			document.getElementsByClassName('text')[0].style.color = 'black';
 			document.getElementsByClassName('text')[1].style.color = 'black';
 			document.getElementsByClassName('text')[2].style.color = 'black';
+			for (let i = 0; i < button.length; i++) {
+				button[i].style.color = '#4a0480';
+				button[i].style.backgroundColor = '#63e3f2';
+			}
 			button[1].title = 'SkyBlue';
 		}
 	}
@@ -289,13 +293,17 @@ function Buttons() {
 			document.getElementsByClassName('text')[0].style.color = 'white';
 			document.getElementsByClassName('text')[1].style.color = 'white';
 			document.getElementsByClassName('text')[2].style.color = 'white';
+			for (let i = 0; i < button.length; i++) {
+				button[i].style.color = 'wheat';
+				button[i].style.backgroundColor = '#270046';
+			}
 			button[1].title = 'Brown'
 		}
 	}
 
 	// изменение цвета змейки
 	if (button[2].title == 'Yellow') {
-		button[2].style.backgroundColor = '#fff001';
+		button[2].style.color = '#fff001';
 		button[2].onclick = function () {
 			clr = '#fff001';
 			for (var i = 0; i < stail.length; i++) {
@@ -305,7 +313,7 @@ function Buttons() {
 		};
 	}
 	else {
-		button[2].style.backgroundColor = '#3bab07';
+		button[2].style.color = '#3bab07';
 		button[2].onclick = function () {
 			clr = '#3bab07';
 			for (var i = 0; i < stail.length; i++) {

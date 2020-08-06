@@ -15,6 +15,7 @@ body{
 	justify-content: center;
 	/*Перпендикулярно ряду*/
 	align-items: center;
+	overflow: hidden;
 }
 
 /*граница игрового поля*/
@@ -24,20 +25,27 @@ canvas{
 	display: block;
 }
 
+/* между кнопками */
+p{
+	margin: 8px;
+}
+
 /* подравняем кнопки */
 #buttons_list{
-	margin-left: 20px;
-	margin-right: 15px;
+	padding: 0px;
+	margin-left: 13px;
+	margin-right: 10px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
-	height: 705px;
-	margin-bottom: 10px;
+	height: 715px;
 	max-height: 715px;
 }
 
 #buttons_color{
+	padding: 0px;
+	margin: 0px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -45,6 +53,8 @@ canvas{
 }
 
 #buttons_settings{
+	padding: 0px;
+	margin: 0px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -52,7 +62,8 @@ canvas{
 }
 
 #button_manual{
-	
+	padding: 0px;
+	margin: 0px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -62,9 +73,13 @@ canvas{
 /* выставим одинаковый размер */
 .buttons{
 	width: 90px;
-	height: 30px;
+	height: 32px;
 	border: none;
-	background-color: seashell;
+	color: wheat;
+	font: 15px Arial;
+	font-weight: bolder;
+	padding: 0px;
+	background-color: #270046;
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -75,20 +90,22 @@ canvas{
 
 /* при наведении показывается рамка */
 .buttons:hover{
-	background-color: wheat;
-	transform: scale(1.2);
+	/* background-color: wheat; */
+	transform: scale(1.4);
 }
 
 /* по нажатии */
 .buttons:active{
-	background-color: red;
+	animation: shadow 1s;
 }
 
 /* стиль текста на странице */
 .text{
-	margin-bottom: 0px;
+	padding: 0;
+	margin-top: 0px;
+	margin-bottom: 15px;
 	color: white;
-	font: 20px Impact;
+	font: 30px Impact;
 	text-decoration: underline;
 }
 
@@ -121,7 +138,7 @@ canvas{
    font-weight: bolder;
    color: ivory; 
    position: absolute;
-   bottom: 555px;
+   bottom: 605px;
    left: 1200px; 
    cursor: pointer;
    animation: zoom 1s;
@@ -135,4 +152,10 @@ canvas{
 @keyframes zoom{
 	from{transform: scale(0)}
 	to{transform: scale(1);}
+}
+
+/* затемнение кнопки */
+@keyframes shadow{
+	from{opacity: 0}
+	to{opacity: 1;}
 }
