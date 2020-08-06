@@ -8,12 +8,10 @@
 	<link rel="shortcut icon" href="492snake_100855.ico" type="image/x-icon">
 </head>
 
-<!-- TODO: Добавить модальное изображение мануала и правил игры, вместо выключения по кнопке -->
+<!-- TODO: сделать кнопки и список более красивыми -->
 
 <body>
 	<canvas id="snake" width="1400px" height="715px"></canvas>
-	<img src="Manual.jpg" alt="Can't be donwload">
-	<img src="rules.jpg" alt="Can't be donwload">
 	<article id="buttons_list">
 		<div id="buttons_color">
 			<h1 class="text"> Color </h1>
@@ -23,7 +21,7 @@
 		</div>
 		<div id="buttons_settings">
 			<h1 class="text">Settings</h1>
-			<p><input class="buttons" type="button" value="Pause"></p>
+			<p><input class="buttons" type="button" value="Pause" title="Playing"></p>
 			<p><input class="buttons" type="button" value="Barriers"></p>
 			<p><input type="button" value="Clear" class="buttons"></p>
 		</div>
@@ -31,6 +29,12 @@
 			<h1 class="text">Rules</h1>
 			<p><input class="buttons" type="button" value="Manual" title="Show" /></p>
 			<p><input type="button" value="Rules" title="Show" class="buttons"></p>
+			<div class="background">
+				<img src="Manual.jpg" alt="Can't be donwload" id="image1">
+				<img src="rules.jpg" alt="Can't be donwload" id="image2">
+				<p id="close1">&times;</p>
+				<p id="close2">&times;</p>
+			</div>
 		</div>
 	</article>
 	<script src="Game.js"></script>

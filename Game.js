@@ -1,6 +1,19 @@
 window.onload = function () { // при загрузке страницы выполняется функция
 	document.addEventListener('keydown', move); // при нажатии клавиши
-	setInterval(main, 1000 / 60); // 60 fps
+	var game = setInterval(main, 1000 / 60); // 60 fps
+	button[3].onclick = function () { // пауза
+		if (button[3].title == "Playing") {
+			clearInterval(game);
+			button[3].title = "Stop";
+			button[3].value = "Unpause";
+			Paused();
+		}
+		else {
+			game = setInterval(main, 1000 / 60);
+			button[3].title = "Playing";
+			button[3].value = "Pause";
+		}
+	}
 };
 
 // при уходе со страницы закидываем в локалку данные счета
@@ -31,7 +44,9 @@ var
 	clrb = 'white', // цвет границы
 	body = document.getElementsByTagName('body'), // элемент тэга для изменения цвета страницы
 	button = document.getElementsByClassName('buttons'), // список кнопок 
-	barriers = false; // барьеры 
+	barriers = false, // барьеры 
+	close1 = document.getElementById('close1'), // значки закрытия картинок
+	close2 = document.getElementById('close2');
 
 // *сама игра	
 function main() {
@@ -301,50 +316,29 @@ function Buttons() {
 		}
 	}
 	// пауза
-	button[3].onclick = function () {
-		if (start) { alert('GAME IS PAUSED\n' + 'Press OK to continue...'); }
-		else {
-			alert('GAME DIDNT START');
-		}
-	}
+
 	// мануал
-	if (button[6].title == 'Show') {
-		button[6].onclick = function () {
-			document.getElementsByTagName('img')[0].style.visibility = 'visible';
-			button[6].title = 'Hide';
-			button[6].value = 'Close';
-			button[6].style.backgroundColor = 'red';
-			button[6].style.color = 'white'
-		};
-	}
-	else {
-		button[6].onclick = function () {
-			document.getElementsByTagName('img')[0].style.visibility = 'hidden';
-			button[6].title = 'Show';
-			button[6].value = 'Manual';
-			button[6].style.backgroundColor = 'white';
-			button[6].style.color = 'black'
-		};
+	button[6].onclick = function () {
+		document.getElementsByClassName('background')[0].style.display = 'block';
+		document.getElementById('image1').style.display = 'block';
 	};
+
+	close1.onclick = function () {
+		document.getElementsByClassName('background')[0].style.display = 'none';
+		document.getElementById('image1').style.display = 'none';
+	}
+
 	//правила игры
-	if (button[7].title == 'Show') {
-		button[7].onclick = function () {
-			document.getElementsByTagName('img')[1].style.visibility = 'visible';
-			button[7].title = 'Hide';
-			button[7].value = 'Close';
-			button[7].style.backgroundColor = 'red';
-			button[7].style.color = 'white'
-		};
-	}
-	else {
-		button[7].onclick = function () {
-			document.getElementsByTagName('img')[1].style.visibility = 'hidden';
-			button[7].title = 'Show';
-			button[7].value = 'Rules';
-			button[7].style.backgroundColor = 'white';
-			button[7].style.color = 'black'
-		};
+	button[7].onclick = function () {
+		document.getElementsByClassName('background')[0].style.display = 'block';
+		document.getElementById('image2').style.display = 'block';
 	};
+
+	close2.onclick = function () {
+		document.getElementsByClassName('background')[0].style.display = 'none';
+		document.getElementById('image2').style.display = 'none';
+	}
+
 	// добавление барьеров
 	button[4].onclick = function () {
 		barriers = true;
@@ -377,4 +371,11 @@ function LoseByBarriers(barriers) {
 		return true;
 	}
 	return false;
+}
+
+//* напишем оповещение
+function Paused() {
+	con.fillStyle = 'red';
+	con.font = "80px Times New Roman";
+	con.fillText("GAME IS PAUSED", canv.width - 1000, canv.height - 100);
 }

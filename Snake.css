@@ -66,6 +66,11 @@ canvas{
 	border: none;
 	background-color: seashell;
 	border-radius: 10px;
+	cursor: pointer;
+}
+
+.buttons:active, .buttons:focus{
+	outline: none;
 }
 
 /* при наведении показывается рамка */
@@ -88,12 +93,46 @@ canvas{
 }
 
 /* стиль картинки (мануала) */
-img{
+#image1, #image2 {
 	width: 800px;
 	height: 450px;
 	position: absolute;
-	bottom: 80px;
-	right: 200px;
-	visibility: hidden;
+	bottom: 140px;
+	right: 360px;
+	display: none;
+	animation: zoom 1s;
 }
 
+/* новый вид мануала и правил игры */
+.background{
+	display: none;
+	width:100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background-color: rgba(0,0,0,0.9);
+}
+
+/* Закрытие картинок*/
+#close1, #close2{
+   display: block;
+   font-size: 50px;
+   font-weight: bolder;
+   color: ivory; 
+   position: absolute;
+   bottom: 555px;
+   left: 1200px; 
+   cursor: pointer;
+   animation: zoom 1s;
+}
+
+#close1, #close2:hover{ 
+    opacity: 0.5;
+}
+
+/* анимация показа картинок */
+@keyframes zoom{
+	from{transform: scale(0)}
+	to{transform: scale(1);}
+}
