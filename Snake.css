@@ -86,10 +86,10 @@ canvas{
 
 /* стиль текста на странице */
 .text{
-	font-size: 20px;
 	margin-bottom: 0px;
 	color: white;
-	font-weight: bolder;
+	font: 20px Impact;
+	text-decoration: underline;
 }
 
 /* стиль картинки (мануала) */

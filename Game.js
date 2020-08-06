@@ -46,7 +46,9 @@ var
 	button = document.getElementsByClassName('buttons'), // список кнопок 
 	barriers = false, // барьеры 
 	close1 = document.getElementById('close1'), // значки закрытия картинок
-	close2 = document.getElementById('close2');
+	close2 = document.getElementById('close2'),
+	danger = false, // нужны ли бомбы
+	bombs = []; // бомбы
 
 // *сама игра	
 function main() {
@@ -67,6 +69,8 @@ function main() {
 
 	// вывод барьера
 	ShowBarriers(barriers);
+	// вывод бомбочек
+	PrintBombs(danger);
 
 	// движение головы
 	px += xs;
@@ -113,7 +117,7 @@ function main() {
 			// условие пересечения, что квадрат хвоста лежит внутри квадрата головы
 			if (
 				(px < (stail[i].x + pw) && (px + pw) > stail[i].x
-					&& py < (stail[i].y + ph) && (py + ph) > stail[i].y) || LoseByBarriers(barriers)
+					&& py < (stail[i].y + ph) && (py + ph) > stail[i].y) || LoseByBarriers(barriers) || LoseByBombs(danger)
 			) {
 				// есть пересечение
 				tail = 10;
@@ -189,6 +193,19 @@ function spawn() {
 		) {
 			spawn();
 			return;
+		}
+	}
+
+	// проверка спавна на бомбе
+	if (danger) {
+		for (let i = 0; i < bombs.length; i++) {
+			if (
+				newapple.x < (bombs[i].x + pw) && (newapple.x + aw) > bombs[i].x
+				&& newapple.y < (bombs[i].y + ph) && (newapple.y + ah) > bombs[i].y
+			) {
+				spawn();
+				return;
+			}
 		}
 	}
 
@@ -318,7 +335,7 @@ function Buttons() {
 	// пауза
 
 	// мануал
-	button[6].onclick = function () {
+	button[7].onclick = function () {
 		document.getElementsByClassName('background')[0].style.display = 'block';
 		document.getElementById('image1').style.display = 'block';
 	};
@@ -329,7 +346,7 @@ function Buttons() {
 	}
 
 	//правила игры
-	button[7].onclick = function () {
+	button[8].onclick = function () {
 		document.getElementsByClassName('background')[0].style.display = 'block';
 		document.getElementById('image2').style.display = 'block';
 	};
@@ -343,9 +360,30 @@ function Buttons() {
 	button[4].onclick = function () {
 		barriers = true;
 	};
-	// очищение поля от барьеров
-	button[5].onclick = function () {
+
+	// отключение
+	button[4].ondblclick = function () {
 		barriers = false;
+	};
+
+	//Добавление бомб
+	button[5].onclick = function () {
+		danger = true;
+		SpawnBombs(10);
+	}
+
+	// новые бомбочки
+	button[5].ondblclick = function () {
+		bombs.splice(0, bombs.length);
+		SpawnBombs(10);
+		danger = true;
+	}
+
+	// очищение поля от барьеров и бомб
+	button[6].onclick = function () {
+		barriers = false;
+		danger = false;
+		bombs.splice(0, bombs.length);
 	};
 
 }
@@ -365,10 +403,23 @@ function ShowBarriers(barriers) {
 	}
 }
 
-// условие поражения от барьера
+// !условие поражения от барьера
 function LoseByBarriers(barriers) {
 	if (barriers && ((px + pw > canv.width - 20) || (py + ph > canv.height - 20) || (py < 86) || (px < 20))) {
 		return true;
+	}
+	return false;
+}
+
+//! условие поражения от бомб
+function LoseByBombs(danger) {
+	for (let boom = 0; boom < bombs.length; boom++) {
+		if (danger
+			&& px < (bombs[boom].x + aw) && (px + pw) > bombs[boom].x
+			&& py < (bombs[boom].y + ah) && (py + ph) > bombs[boom].y
+		) {
+			return true;
+		}
 	}
 	return false;
 }
@@ -378,4 +429,57 @@ function Paused() {
 	con.fillStyle = 'red';
 	con.font = "80px Times New Roman";
 	con.fillText("GAME PAUSED", canv.width - 1000, canv.height - 100);
+}
+
+//бомбы
+function SpawnBombs(count) {
+	var newbomb = {
+		x: ~~(Math.random() * (canv.width - 40)),
+		y: ~~(Math.random() * (canv.height - 40))
+	};
+
+	// проверка на змее и в пределах поля
+	if ((newbomb.x < 20) || (newbomb.y < 85) ||
+		(px < (newbomb.x + aw) && (px + pw) > newbomb.x
+			&& py < (newbomb.y + ah) && (py + ph) > newbomb.y)) {
+		SpawnBombs(count);
+		return;
+	}
+
+	// проверка на яблоке
+	for (var ap = 0; ap < apples.length; ap++) {
+		if (
+			newbomb.x < (apples[ap].x + aw) && (newbomb.x + pw) > apples[ap].x
+			&& newbomb.y < (apples[ap].y + ah) && (newbomb.y + ph) > apples[ap].y
+		) {
+			SpawnBombs(count);
+			return;
+		}
+	}
+
+	// между бомбами примерно 40 - 60 пикселей
+	for (var i = 0; i < bombs.length; i++) {
+		if ((Math.abs(newbomb.x - bombs[i].x) < 60) || (Math.abs(newbomb.y - bombs[i].y) < 60)) {
+			SpawnBombs(count);
+			return;
+		}
+	}
+
+	bombs.push(newbomb);
+
+	if (bombs.length < count) {
+		SpawnBombs(count);
+		return;
+	}
+}
+
+function PrintBombs(danger) {
+	if (danger) { //бомбочки
+		for (var i = 0; i < bombs.length; i++) {
+			con.fillStyle = clrb;
+			con.fillRect(bombs[i].x, bombs[i].y, pw, ph);
+			con.fillStyle = 'red';
+			con.fillRect(bombs[i].x + 5, bombs[i].y + 5, 10, 10);
+		}
+	}
 }
