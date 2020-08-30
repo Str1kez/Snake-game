@@ -1,6 +1,7 @@
 window.onload = function () { // при загрузке страницы выполняется функция
 	document.addEventListener('keydown', move); // при нажатии клавиши
 	var game = setInterval(main, 1000 / 60); // 60 fps
+	window.addEventListener('resize', CanvasResize);
 	button[3].onclick = function () { // пауза
 		if (button[3].title == "Playing") {
 			clearInterval(game);
@@ -23,7 +24,16 @@ window.onunload = function () {
 
 var
 	canv = document.getElementById('snake'), // подключаем канвас
-	con = canv.getContext('2d'), // как будем рисовать
+	con = canv.getContext('2d'); // как будем рисовать
+
+function CanvasResize() {  // Изменяем поле исходя из экрана игрока
+	canv.height = window.innerHeight - 5;
+	canv.width = window.innerWidth - 135;
+}
+
+CanvasResize();
+
+var
 	start = fkey = false, // первая клавиша нажата/ начало игры
 	speed = baseSpeed = 3, // скорость змейки и ее начальная скорость
 	px = ~~(canv.width) / 2, // позиция головы
@@ -50,6 +60,7 @@ var
 	danger = false, // нужны ли бомбы
 	bombs = []; // бомбы
 
+
 // *сама игра	
 function main() {
 
@@ -63,7 +74,7 @@ function main() {
 	con.beginPath();
 	con.lineWidth = 2;
 	con.moveTo(0, 65);
-	con.lineTo(1400, 65);
+	con.lineTo(canv.width, 65);
 	con.strokeStyle = clrb;
 	con.stroke();
 
@@ -163,12 +174,12 @@ function main() {
 	}
 	// добавим скорборд
 	con.fillStyle = clrb;
-	con.font = '30px Arial';
-	con.fillText('SCORE: ' + score, 45, 60);
-	con.font = '30px Arial';
-	con.fillText('CURRENT BESTSCORE: ' + bestscore, 900, 60);
-	con.font = '30px Arial';
-	con.fillText('BESTSCORE: ' + bestscoreever, 420, 60);
+	con.font = canv.width / 64 + 'px Arial';
+	con.fillText('SCORE: ' + score, canv.width / 31.1, 60);
+	con.font = canv.width / 64 + 'px Arial';
+	con.fillText('CURRENT BESTSCORE: ' + bestscore, canv.width / 1.56, 60);
+	con.font = canv.width / 64 + 'px Arial';
+	con.fillText('BESTSCORE: ' + bestscoreever, canv.width / 3.34, 60);
 };
 
 // функция добавления яблока
@@ -351,6 +362,7 @@ function Buttons() {
 	close1.onclick = function () {
 		document.getElementsByClassName('background')[0].style.display = 'none';
 		document.getElementById('image1').style.display = 'none';
+		document.getElementById('image2').style.display = 'none';
 	}
 
 	//правила игры
@@ -362,6 +374,7 @@ function Buttons() {
 	close2.onclick = function () {
 		document.getElementsByClassName('background')[0].style.display = 'none';
 		document.getElementById('image2').style.display = 'none';
+		document.getElementById('image1').style.display = 'none';
 	}
 
 	// добавление барьеров
@@ -435,8 +448,8 @@ function LoseByBombs(danger) {
 //* напишем оповещение
 function Paused() {
 	con.fillStyle = 'red';
-	con.font = "80px Times New Roman";
-	con.fillText("GAME PAUSED", canv.width - 1000, canv.height - 100);
+	con.font = canv.width / 17.5 + "px Times New Roman";
+	con.fillText("GAME PAUSED", canv.width - canv.width / 1.4, canv.height - canv.height / 7.15);
 }
 
 //бомбы
